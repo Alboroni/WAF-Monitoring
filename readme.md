@@ -1,4 +1,10 @@
-# Key Performance Indicators
+# Topics
+
+- [Setting Key Performance Indicators]()
+- [Monitoring Implementation]()
+- 
+
+# Setting Key Performance Indicators
 
 Following mapping out of the Service we now need to determine what are the key performance indicators are for each component, how they are recorded, how we can monitor them and if applicable what threshold should be set for alerting.  These will need to be recored so we can implement the alerts and dashboards following KPI disucussion.  An individual  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet should be saved for customer recording what thresholds and key performance indciators have been set to be configured later. For a list of supported metrics that can be used for each resource type please refer to the [platform metrics](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported) documentation.  
 
@@ -69,7 +75,12 @@ Diagnostics should be set via Policy.  Review each resource type dto determinse 
 
 ## Action Groups
 
-Following KPI review the relevant action groups should be set up for the alerts. These will be the relevant mail teams for each compent that has been discussed in the monitoring disuccsion workshop. An example arm template can be found in the [templates section](Templates\ActionGroupTemplate.json) of the repository with relevant [parameter file](Templates\ParameterFiles\ActionGrpParams.json).   
+Following KPI review the relevant action groups should be set up for the alerts. These will be the relevant mail teams for each compent that has been discussed in the monitoring disuccsion workshop. An example arm template can be found in the [templates section](Templates\ActionGroupTemplate.json) of the repository with relevant [parameter file](Templates\ParameterFiles\ActionGrpParams.json).  
+
+## Multi Resource Alerts
+
+Where possible and if able to scope multiresource alerts should be set. This enables one alert rule to be configred for many resources The currently supported resource
+
 
 ## Service Health
 
@@ -90,7 +101,7 @@ The virtual machines will require the agents to be installed. It is recommended 
 
 ### VM Alerting 
 
-Where possible metric alerts should be set in accordance to pattern matching. This enables real time monitoring sceanrios and stateful alerts. If log alerts are necessary please review the [sample alert queries](https://docs.microsoft.com/en-us/azure/azure-monitor/vm/monitor-virtual-machine-alerts) and raise the necessary alerts.  
+Where possible metric alerts should be set in accordance to pattern matching. This enables real time monitoring sceanrios. If log alerts are necessary please review the [sample alert queries](https://docs.microsoft.com/en-us/azure/azure-monitor/vm/monitor-virtual-machine-alerts) and raise the necessary alerts. It is recommended that the log analytics alerts are set to be [stateful](https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-unified-log#state-and-resolving-alerts) which is currently in preview.  
 
 ## Recovery Vaults
 
@@ -99,7 +110,11 @@ Recovery vaults diagnostics should be set up using policy. Please refer to [conf
 
 ## Containers 
 
-For the AKS clusterr please [enable container insights](https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-enable-existing-clusters#enable-using-an-azure-resource-manager-template) using one fo the methods listed. For long term supportability using the customer policy would be the recommended method for deployment. 
+For the AKS cluster please [enable container insights](https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-enable-existing-clusters#enable-using-an-azure-resource-manager-template) using one fo the methods listed. For long term supportability using the customer policy would be the recommended method for deployment.
+
+### Container Alerting
+
+
 
 ## Storage
 
