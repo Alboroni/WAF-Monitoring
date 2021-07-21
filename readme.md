@@ -17,7 +17,7 @@ Review current Service and Resource Health and confirm the criteria for the serv
 
 ### Activity Log 
 
-Review key components in design to confirm if we want any activity log alerts for for these Examples could include route table or NSG updates or deletion of resources in production. Other examples could be for Autoscale events of VMs or failure to Autoscale.  An example arm template can be found [here](https://github.com/Azure/azure-quickstart-templates/tree/master/demos/monitor-autoscale-failed-alert). The activity log should be also be collected into a Log Analytics workspace and set via policy. The builtin Policy Definition name is "Configure Azure Activity logs to stream to specified Log Analytics workspace". 
+Review key components in design to confirm if any activity log alerts should be enabled.  Examples could include route table or NSG updates or deletion of resources in production. Other examples could be for Autoscale events of VMs or failure to Autoscale.  An example arm template can be found [here](https://github.com/Azure/azure-quickstart-templates/tree/master/demos/monitor-autoscale-failed-alert). The activity log should be also be collected into a Log Analytics workspace.  The builtin Policy Definition name  "Configure Azure Activity logs to stream to specified Log Analytics workspace" should be used to configure this. 
 
 ### Endpoints
 
@@ -57,16 +57,15 @@ Customer should confirm if new workspace needs to be created or an existing one 
 
 Please review [Workspace Consideratiions](https://docs.microsoft.com/en-us/azure/azure-monitor/logs/design-logs-deployment#important-considerations-for-an-access-control-strategy ) and [Management and Monitoring](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/enterprise-scale/management-and-monitoring) of Enterpise scale documentation  when deciding to create new or existing workspace and who can access it. 
 
-The workspace will be used to collect any relevent event and log data from the various sources we need to monitoring in Azure. This should 
+The workspace will be used to collect any relevent event and log data from the various sources we need to monitoring in Azure. 
 
 Please follow the [Create a Log Analytics Workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/logs/quick-create-workspace) if a new workpsace needs to be created.
 
 ## Diagnostic Settings
 
-Review of diagnostics settings for all key components. Enab;eIf Diagnostics are required for 
+Review of diagnostics settings for all key components. EnableIf Diagnostics are required for observailbity purposes. 
 
-Diagnostics should be set via Policy.  Review each resource type documentnation for policy for the diagnostic and resource logs for each. A policy intiative can be set for diagnostic settings and should be set at a Management Group level if possible. Not all resoure type have builtin policies to set respurce logs and custom polcies can be found in the Enterprise Scale deployment if followed
-
+Diagnostics should be set via Policy.  Review each resource type dto determinse if diagnotis are required and if the yneed to be set. A policy intiative can be set for diagnostic settings and should be set at a Management Group level if possible. Not all resoure type have builtin policies. A custom initiative can be set using the [Diagnostics Policy Scripts](https://github.com/JimGBritt/AzurePolicy/tree/master/AzureMonitor/Scripts) repository, 
 
 ## Action Groups
 
@@ -74,7 +73,7 @@ Following KPI review the relevant action groups should be set up for the alerts.
 
 ## Service Health
 
-Service health alerts should be set up in adherence to the the KPI disucssion session. Example templates for setting up a service health alert can be found here 
+Service health alerts should be set up in adherence to the the KPI disucssion session. Example templates for setting up a service health alert can be found here <to add>
 
 ## Resource Health
 
@@ -89,6 +88,9 @@ Please follow [Add VM Insights](https://docs.microsoft.com/en-us/azure/azure-mon
 
 The virtual machines will require the agents to be installed. It is recommended to use Azure Policy to deploy the agents. Please use the [Enable VM Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-policy) initiative to deploy the Log analytics and Dependency agent to the targetted VMs at the relevant scope. 
 
+### VM Alerting 
+
+Where possible metric alerts should be set in accordance to pattern matching. This enables real time monitoring sceanrios and stateful alerts. If log alerts are necessary please review the [sample alert queries](https://docs.microsoft.com/en-us/azure/azure-monitor/vm/monitor-virtual-machine-alerts) and raise the necessary alerts.  
 
 ## Recovery Vaults
 
@@ -101,7 +103,7 @@ For the AKS clusterr please [enable container insights](https://docs.microsoft.c
 
 ## Storage
 
-For storage review the Storage Insight which  
+For storage review the Storage Insight which is automatically enabled 
 
 
 ## App Service 
