@@ -1,12 +1,58 @@
 # Topics
 
+- [Topics](#topics)
 - [Health Modeling](#health-modeling)
+  - [Alerting](#alerting)
+  - [Visualisations](#visualisations)
+  - [Diagnostics](#diagnostics)
+  - [Actions and Notifications](#actions-and-notifications)
+  - [Components](#components)
+    - [Service and Resource Health](#service-and-resource-health)
+    - [Activity Log](#activity-log)
+    - [Endpoints](#endpoints)
+    - [Virtual Machines](#virtual-machines)
+    - [Containers and Kubernetes Services](#containers-and-kubernetes-services)
+    - [Key Vault](#key-vault)
+    - [Storage](#storage)
+    - [App Service](#app-service)
+    - [Azure Functions](#azure-functions)
+- [Monitoring Implementation](#monitoring-implementation)
+  - [Log Analytics Workspace](#log-analytics-workspace)
+  - [Diagnostic Settings](#diagnostic-settings)
+  - [Action Groups](#action-groups)
+  - [Multi Resource Alerts](#multi-resource-alerts)
+  - [Service Health](#service-health)
+  - [Resource Health](#resource-health)
+  - [Virtual Machines](#virtual-machines-1)
+    - [VM Alerting](#vm-alerting)
+  - [Recovery Vaults](#recovery-vaults)
+  - [Containers](#containers)
+    - [Container Alerting](#container-alerting)
+  - [Storage](#storage-1)
+  - [App Service](#app-service-1)
+  - [Visualisation](#visualisation)
+    - [Workbooks](#workbooks)
+  <br>
+  <br>
+  
 - [Monitoring Implementation](#monitoring-implementation)
 - 
 
 # Health Modeling 
 
-Following mapping out of the Service we now need to determine what are the key performance indicators are for each component, how they are recorded, how we can monitor them and if applicable what threshold should be set for alerting.  These will need to be recored so we can implement the alerts and dashboards following KPI disucussion.  An individual  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet should be saved for customer recording what thresholds and key performance indicators have been set to be configured later. For a list of supported metrics that can be used for each resource type please refer to the [platform metrics](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported) documentation. 
+Following mapping out of the Service we now need to determine what are the Key Performance Indicators (KPI) are for each component, how they are recorded, how we can monitor them and if applicable what threshold should be set for alerting.  These will need to be recored so we can implement the alerts and dashboards following KPI disucussion.  An individual  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet should be saved for customer recording what thresholds and key performance indicators have been set to be configured later. For a list of supported metrics that can be used for each resource type please refer to the [platform metrics](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported) documentation. 
+
+## Alerting
+
+Alerts are notifications of system health issues that are found during monitoring. Alerts only deliver value if they are actionable and effectively prioritized. Careful consideration needs to be made to confimr if an alert needs to be rasied or it should be included in dashboards or visualisations. 
+
+## Visualisations
+
+Visualisations need to be created for an operational dashboards to give insights into the application health and enable quick diagnosis of issue that will effect availability and health of the application. Deeper insights can be provided through workbooks. For each KPI it should noted if it is to be included in a cental operations dashboard in the [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx).  It should also be noted that many of the components will have built in visualisations, insights and workbooks that can be used for deeper insights but also can be be pinned to operational dashboards. 
+
+## Diagnostics
+
+For each component discovered in the service scoping it will need to be discussed if diagnostics settings are required to be enabled for resource logs and metrics.  These can be observabilitly, audit, security or compliance purposes.
 
 
 ## Actions and Notifications
@@ -27,11 +73,11 @@ Review key components in design to confirm if any activity log alerts should be 
 
 ### Endpoints
 
-Discuss what endpoints need to be monitored and if they are publically or internally available. These should be recorded in the  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) for later reference. 
+Discuss what endpoints need to be monitored and if they are publically or internally available. These should be recorded in the  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) for later reference. It can then be determined if these needs to be monitored via connection monitor or application insights 
 
 ### Virtual Machines
 
-Discuss what Virtual Machines are in place , would they need the same threshold set for them or would different thresholds need to be set for different VMS in scope? Some example thresholds have been set in the [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet.  Review current CPU, Memory usage via metric exploror to determine current levels and what threshold should be set initially. 
+Discuss what Virtual Machines are in place, would they need the same threshold set for them or would different thresholds need to be set for different VMS in scope? Some example thresholds have been set in the [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet.  Review current CPU, Memory usage via metric exploror to determine current levels and what threshold should be set initially. 
 
 ### Containers and Kubernetes Services 
 
@@ -39,7 +85,7 @@ AKS cluster now supports [predefined alerts](https://docs.microsoft.com/en-us/az
 
 ### Key Vault
 
-A key vault availability can be crucial for operation of the application. Example thesholds have been set in in the  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet for some key metrics in the operation or Key Vault. 
+A key vault availability can be crucial for operation of the application. Example thesholds have been set in in the  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet for some key metrics in the operation or Key Vault. The incldue key vault saturatios and availability.
 
 ### Storage
 
@@ -48,12 +94,12 @@ Review the [storage metrics](https://docs.microsoft.com/en-us/azure/storage/blob
 Storage also has a set [dimension for metrics](https://docs.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage-reference#metrics-dimensions) for more.effective monitoring for known errors depending on the storage type. Review to see if further alerts should be set. 
 
 ### App Service 
+<App Insight> 
 
 
+### Azure Functions
 
-
-
-
+< App Insights>
 
 # Monitoring Implementation
 
@@ -69,9 +115,9 @@ Please follow the [Create a Log Analytics Workspace](https://docs.microsoft.com/
 
 ## Diagnostic Settings
 
-Review of diagnostics settings for all key components. EnableIf Diagnostics are required for observailbity purposes. 
+Review of diagnostics settings for all key components. Enable If Diagnostics are required for observability purposes. 
 
-Diagnostics should be set via Policy.  Review each resource type dto determinse if diagnotis are required and if the yneed to be set. A policy intiative can be set for diagnostic settings and should be set at a Management Group level if possible. Not all resoure type have builtin policies. A custom initiative can be set using the [Diagnostics Policy Scripts](https://github.com/JimGBritt/AzurePolicy/tree/master/AzureMonitor/Scripts) repository, 
+Diagnostics should be set via Policy. Review each resource type dto determinse if diagnotis are required and if they need to be set. A policy intiative can be set for diagnostic settings and should be set at a Management Group level if possible. Not all resoure type have builtin policies. A custom initiative can be set using the [Diagnostics Policy Scripts](https://github.com/JimGBritt/AzurePolicy/tree/master/AzureMonitor/Scripts) repository that can set up  a policy intiative for diagnostics , 
 
 ## Action Groups
 
@@ -79,7 +125,7 @@ Following KPI review the relevant action groups should be set up for the alerts.
 
 ## Multi Resource Alerts
 
-Where possible and if able to scope multiresource alerts should be set. This enables one alert rule to be configred for many resources The currently supported resource
+Where possible and if able to scope multiresource alerts should be set. This enables one alert rule to be configred for many resources and targgeted via a scope at Resource Group or Sunscriptions LEvel The currently supported resource. 
 
 
 ## Service Health
@@ -93,7 +139,7 @@ Resource Health alert should be set up in accordance with KPI discussion. Exampl
 
 ## Virtual Machines
 
-To monitor Virtual Machines we will use the **VM Insights**. This gives us a standardized and recommend set of data collection and builtin visualisations to help indentify performance bottlenecks and dependencies 
+To monitor Virtual Machines we will use **VM Insights** . This gives us a standardized and recommend set of data collection and builtin visualisations to help indentify performance bottlenecks and dependencies 
 
 Please follow [Add VM Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-configure-workspace?tabs=CLI#add-vminsights-solution-to-workspace) to add the solution to the workspace. 
 
@@ -114,11 +160,12 @@ For the AKS cluster please [enable container insights](https://docs.microsoft.co
 
 ### Container Alerting
 
+Container insigts provide a recommended set of [metric alerts] 
 
 
 ## Storage
 
-For storage review the Storage Insight which is automatically enabled 
+For storage review the [Storage Insights](https://docs.microsoft.com/en-us/azure/storage/common/storage-insights-overview?toc=/azure/azure-monitor/toc.json) which is automatically enabled for any storage account.  
 
 
 ## App Service 
@@ -126,6 +173,12 @@ For storage review the Storage Insight which is automatically enabled
 Ensure [diagnostic settings are enabled for the app service](https://docs.microsoft.com/en-us/azure/app-service/troubleshoot-diagnostic-logs) and 
 https://docs.microsoft.com/en-us/azure/app-service/monitor-app-service
 
+
+## Visualisation
+
+An operational dashboard should be created for an overview of the applications health.  This should be able to give quick insights and observability to the application's health. For deeper insights workbooks should be considered. Visualisations can be pinned for segments of [workbooks](https://docs.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview#pinning-visualizations), directly from [metrics explorer](https://docs.microsoft.com/en-us/azure/azure-monitor/app/tutorial-app-dashboards) or using [KQL queries](https://docs.microsoft.com/en-us/azure/azure-monitor/visualize/tutorial-logs-dashboards) that are scoped to the applcations monitoring pattern.  For each of the elements review the Azure Monitor - Workbooks public templates. These will contain pinnable and customisable workbooks for a variety of key components. 
+
+### Workbooks 
 
 
 
