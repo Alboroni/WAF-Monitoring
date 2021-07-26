@@ -1,12 +1,12 @@
 # Topics
 
-- [Setting Key Performance Indicators](.\readme.md)
-- [Monitoring Implementation]()
+- [Health Modeling](#health-modeling)
+- [Monitoring Implementation](#monitoring-implementation)
 - 
 
-# Setting Key Performance Indicators
+# Health Modeling 
 
-Following mapping out of the Service we now need to determine what are the key performance indicators are for each component, how they are recorded, how we can monitor them and if applicable what threshold should be set for alerting.  These will need to be recored so we can implement the alerts and dashboards following KPI disucussion.  An individual  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet should be saved for customer recording what thresholds and key performance indciators have been set to be configured later. For a list of supported metrics that can be used for each resource type please refer to the [platform metrics](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported) documentation.  
+Following mapping out of the Service we now need to determine what are the key performance indicators are for each component, how they are recorded, how we can monitor them and if applicable what threshold should be set for alerting.  These will need to be recored so we can implement the alerts and dashboards following KPI disucussion.  An individual  [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet should be saved for customer recording what thresholds and key performance indicators have been set to be configured later. For a list of supported metrics that can be used for each resource type please refer to the [platform metrics](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported) documentation. 
 
 
 ## Actions and Notifications
@@ -19,7 +19,7 @@ In this section we cover off the various components discovered in the workshop t
 
 ### Service and Resource Health
 
-Review current Service and Resource Health and confirm the criteria for the service and resource health alerts and if customer wants alerts for all service health alerts and the criteria they want for the resource health alerts. Example has been set in the [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet. Careful consideration should be taken to see if customer wants to be alerted for User Initiated as well as Platform iInitiated resource health events. An example of a user initiated event would be if a virtual machine is gracefully shut down.  It is advised, to ensure you do not get false postives for unknown health events, to filter out unknown health events. The example template in the reposistory filters out these events 
+Review current Service and Resource Health and confirm the criteria for the service and resource health alerts and if customer wants alerts for all service health alerts and the criteria they want for the resource health alerts. Example has been set in the [Monitoring Pattern](MonitoringPattern\azuremonitoringpattern.xlsx) sheet. Careful consideration should be taken to see if customer wants to be alerted for User Initiated as well as Platform Initiated resource health events. An example of a user initiated event would be if a virtual machine is gracefully shut down.  It is advised, to ensure you do not get false postives for unknown health events, to filter out unknown health events. The example template in the reposistory filters out these events 
 
 ### Activity Log 
 
